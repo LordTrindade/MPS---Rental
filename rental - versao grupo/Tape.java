@@ -5,29 +5,50 @@ public class Tape {
 
   private String titulo;
   private int codigoDePreco;
-
+  private Classification classification;
   public Tape(String titulo, int codigoDePreco) {
     this.titulo = titulo;
     this.codigoDePreco = codigoDePreco;
+     setCodigoDePreco(codigoDePreco);
   }
 
   public String getTitulo() {
     return titulo;
   }
 
+
   public int getCodigoDePreco() {
-    return codigoDePreco;
+    //return codigoDePreco;
+    return classification.getCodigoPreco();
   }
 
   public void setCodigoDePreco(int codigoDePreco) {
-    this.codigoDePreco = codigoDePreco;
+    switch(codigoDePreco) {
+      case NORMAL:
+       this.classification = new ClassificationNormal(NORMAL);
+        break;
+      case LANCAMENTO:
+        this.classification = new ClassificationLancamento(LANCAMENTO);
+        break;
+      case Tape.INFANTIL:
+        this.classification = new ClassificationInfantil(INFANTIL);
+        break;
+
+    } //switch
   }
 
-  public boolean ehLancamento(){
-    if (codigoDePreco==LANCAMENTO){
-      return true;
-    }
-    return false;
+
+
+  public double getValorAluguel(int DiasAlugada){
+    double valorCorrente=0;
+    valorCorrente = classification.getValorAluguel(DiasAlugada);
+    return valorCorrente;
   }
+
+
+  public int givePontosAlugador(int DiasAlugada){
+    return classification.givePontosAlugador(DiasAlugada);
+  }
+
+
 }
-
